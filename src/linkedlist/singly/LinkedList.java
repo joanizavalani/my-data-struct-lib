@@ -7,14 +7,12 @@ public class LinkedList<T extends Comparable<T>> {
     // comes after the header. This is why the constructors automatically assign the header's value to null.
     // This makes processes such as addition before the first "usable" node possible.
 
-    private ListNode<T> header;
+    private final ListNode<T> header;
 
     public LinkedList() {
 
         this.header = new ListNode<>(null);
     }
-
-    public ListNode<T> getHeader() { return this.header; }
 
     // Methods:
 
@@ -38,12 +36,29 @@ public class LinkedList<T extends Comparable<T>> {
 
     public void remove(T value) {
 
-        ListNode<T> node = header.getNext();
+        ListNode<T> node = header;
 
-        while (node != null && !node.getNext().getValue().equals(value))
+        while (node.getNext() != null && !node.getNext().getValue().equals(value))
             node = node.getNext();
 
         node.setNext(node.getNext().getNext());
+    }
+
+    public T atIndex(int index) {
+
+        ListNode<T> node = header;
+        int count = 0;
+
+        while (node.getNext() != null && count != index) {
+            node = node.getNext();
+            count++;
+        }
+
+        if (node.getNext() != null)
+            return node.getNext().getValue();
+        else {
+            return null;
+        }
     }
 
     public int size() {
@@ -68,7 +83,62 @@ public class LinkedList<T extends Comparable<T>> {
         header.setNext(null);
     }
 
-    public LinkedList<T> joinList(LinkedList<T> list2) {
+    public void sort() {
+
+        int listSize = size();
+        boolean swapped = true;
+
+        while (swapped) {
+            swapped = false;
+
+            ListNode<T> node = header.getNext();
+            ListNode<T> previous = null;
+
+            while (node != null && node.getNext() != null) {
+
+                if (node.getValue().compareTo(node.getNext().getValue()) > 0) {
+
+                    ListNode<T> tempNode = node.getNext();
+                    node.setNext(tempNode.getNext());
+                    tempNode.setNext(node);
+
+                    if (previous == null)
+                        header.setNext(tempNode);
+                    else
+                        previous.setNext(tempNode);
+
+                    previous = tempNode;
+                    swapped = true;
+
+                } else {
+                    previous = node;
+                    node = node.getNext();
+                }
+            }
+        }
+    }
+
+    public void removeDuplicates() {
+
+        ListNode<T> node = header.getNext();
+
+        while (node != null) {
+            ListNode<T> runner = node;
+
+            while (runner.getNext() != null) {
+
+                if (node.getValue().equals(runner.getNext().getValue()))
+                    runner.setNext(runner.getNext().getNext());
+                else
+                    runner = runner.getNext();
+            }
+            node = node.getNext();
+        }
+    }
+
+    public LinkedList<T> mergeWith(LinkedList<T> list2) {
+
+        sort(); list2.sort();
 
         ListNode<T> node1 = header.getNext();
         ListNode<T> node2 = list2.header.getNext();
