@@ -14,15 +14,8 @@ public class LinkedList<T extends Comparable<T>> {
         this.header = new ListNode<>(null);
     }
 
+
     // Methods:
-
-    public void add(T value, ListIterator<T> itr) {
-
-        if (itr != null && itr.getCurrent() != null) {
-            itr.getCurrent().setNext(new ListNode<>(value, itr.getCurrent().getNext()));
-            itr.advance();
-        }
-    }
 
     public void add(T value) {
 
