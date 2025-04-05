@@ -14,7 +14,6 @@ public class LinkedList<T extends Comparable<T>> {
         this.header = new ListNode<>(null);
     }
 
-
     // Methods:
 
     public void add(T value) {

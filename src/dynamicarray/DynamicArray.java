@@ -53,7 +53,7 @@ public class DynamicArray<T extends Comparable<T>> {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Index out of array bounds.");
 
-        for (int i = 0; i < size - 1; i++)
+        for (int i = index; i < size - 1; i++)
             array[i] = array[i + 1];
 
         array[size - 1] = null;
@@ -79,10 +79,9 @@ public class DynamicArray<T extends Comparable<T>> {
     public void print() {
 
         int i;
-        for (i = 0; i < size - 1; i++) {
-
+        for (i = 0; i < size - 1; i++)
             System.out.print(array[i] + ", ");
-        }
+
         System.out.println(array[i]);
     }
 
