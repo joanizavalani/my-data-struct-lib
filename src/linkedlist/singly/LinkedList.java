@@ -164,18 +164,20 @@ public class LinkedList<T extends Comparable<T>> {
         return list3;
     }
 
-    public void printList() {
+    public void print() {
 
-        if (isEmpty()) {
+        if (isEmpty())
             System.out.println("This list is empty!");
-        } else {
+
+        else {
             ListNode<T> node = header.getNext();
+            System.out.print("[");
 
             while (node.getNext() != null) {
                 System.out.print(node.getValue() + ", ");
                 node = node.getNext();
             }
-            System.out.println(node.getValue());
+            System.out.println(node.getValue() + "]");
         }
     }
 }

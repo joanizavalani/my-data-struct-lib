@@ -63,7 +63,7 @@ public class DynamicArray<T extends Comparable<T>> {
     public T atIndex(int index) {
 
         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Index out of array bounds.");
+            throw new IndexOutOfBoundsException("Index out of array bounds!");
 
         return array[index];
     }
